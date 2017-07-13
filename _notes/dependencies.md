@@ -6,4 +6,4 @@
     
     axios:  Http library supports promise
     
-    jade :  View engine supports template inheritance  /views/layout.pug
+    pug :  View engine supports template inheritance  /views/layout.pug
