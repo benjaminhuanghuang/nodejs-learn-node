@@ -18,5 +18,7 @@ router.post('/add/:id', catchErrors(storeController.updateStore));
   
 router.get('/stores/:id/edit', catchErrors(storeController.editStore));
 
+// Display single store
+router.get('/store/:slug', catchErrors(storeController.getStoreBySlug));
 
 module.exports = router;
