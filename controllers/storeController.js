@@ -30,7 +30,7 @@ exports.editStore = async (req, res) => {
     // 2. 
 
     // 3.
-    res.render('editStore', {title:`Edit ${store.name}`, store: store});
+    res.render('editStore', {title:`Edit ${store.name}`, store:  });
 };
 
 exports.updateStore = async (req, res) => {
