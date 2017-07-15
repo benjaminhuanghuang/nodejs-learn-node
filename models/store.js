@@ -32,7 +32,8 @@ const storeSchema = new mongoose.Schema({
             type: 'String',
             required: 'You must supply an address!'
         }
-    }
+    },
+    photo: String
 });
 storeSchema.pre('save', async function (next) {
     if (!this.isModified('name')) {
@@ -54,10 +55,22 @@ storeSchema.pre('save', async function (next) {
 });
 
 storeSchema.statics.getTagsList = function () {
-    return this.aggregate([
-        { $unwind: '$tags' },
-        { $group: {_id: '$tags', count: { $sum: 1 } } },
-        { $sort: { count: -1 } }
+    return this.aggregate([{
+            $unwind: '$tags'
+        },
+        {
+            $group: {
+                _id: '$tags',
+                count: {
+                    $sum: 1
+                }
+            }
+        },
+        {
+            $sort: {
+                count: -1
+            }
+        }
     ]);
 }
 
