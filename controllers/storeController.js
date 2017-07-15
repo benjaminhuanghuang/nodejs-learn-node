@@ -8,10 +8,11 @@ const multerOptions = {
         const isPhote = file.mimetype.startsWith('image/');
         if (isPhote) {
             next(null, ture);
-        } else
+        } else {
             next({
                 message: "That filetype is not allowed!"
             }, false);
+        }
     }
 }
 const Store = mongoose.model('Store');
@@ -32,11 +33,11 @@ exports.resize = async(req, res, next) => {
     if (!req.file) {
         next();
         return;
-    } 
+    }
     //console.log(req.file);
     const extension = req.file.mimetype.split('/')[1];
     req.body.photo = `${uuid.v4()}.${extension}`;
-    
+
     //resize
     const photo = await jimp.read(req.file.buffer);
     await photo.resize(800, jimp.AUTO);
