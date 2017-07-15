@@ -21,3 +21,5 @@
 
     // import all of the models
     require('./models/Store');
+
+## Using aggregate
