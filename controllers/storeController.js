@@ -1,4 +1,6 @@
 const mongoose = require('mongoose');
+const jimp = require('jimp');
+const uuid = require('uuid');
 const multer = require('multer');
 const multerOptions = {
     storage: multer.memoryStorage(),
@@ -24,7 +26,26 @@ exports.addStore = (req, res) => {
     });
 }
 
-exports.upload = multer()
+exports.upload = multer(multerOptions).single('photo');
+
+exports.resize = async(req, res, next) => {
+    if (!req.file) {
+        next();
+        return;
+    } 
+    //console.log(req.file);
+    const extension = req.file.mimetype.split('/')[1];
+    req.photo = `${uuid.v4()}.${extension}`;
+    
+    //resize
+    const photo = await jimp.read(req.file.buffer);
+    await photo.resize(800, jimp.AUTO);
+    await photo.write(`/public/uploads/${req.body.photo}`)
+    // After written the photo to file system, keep going.
+    next();
+}
+
+
 exports.createStore = async(req, res) => {
     const store = new Store(req.body);
     await store.save();
@@ -84,14 +105,24 @@ exports.getStoreBySlug = async(req, res, next) => {
 };
 
 // Multiple query
-exports.getStoresByTag = async (req, res) => {
+exports.getStoresByTag = async(req, res) => {
     const tag = req.params.tag;
+    const tagQuery = tag || {
+        $exists: true
+    };
 
     const tagsPromise = Store.getTagsList();
-    const storesPromise = Store.find({tags: tag});
-    
+    const storesPromise = Store.find({
+        tags: tagQuery
+    });
+
     // destructure the result 
     const [tags, stores] = await Promise.all([tagsPromise, storesPromise]);
 
-    res.render('tags', {tag, title: 'Tags', tags, stores});
+    res.render('tags', {
+        tag,
+        title: 'Tags',
+        tags,
+        stores
+    });
 }
