@@ -83,9 +83,15 @@ exports.getStoreBySlug = async(req, res, next) => {
     });
 };
 
+// Multiple query
 exports.getStoresByTag = async (req, res) => {
-    const tags = await Store.getTagsList();
     const tag = req.params.tag;
 
-    res.render('tags', {tags, title: 'Tags', tag})
+    const tagsPromise = Store.getTagsList();
+    const storesPromise = Store.find({tags: tag});
+    
+    // destructure the result 
+    const [tags, stores] = await Promise.all([tagsPromise, storesPromise]);
+
+    res.render('tags', {tag, title: 'Tags', tags, stores});
 }
