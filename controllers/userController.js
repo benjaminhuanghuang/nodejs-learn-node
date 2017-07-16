@@ -67,7 +67,7 @@ exports.updateAccount = async(req, res) => {
         email: req.body.email
     };
     // query, set obj, option
-    const user = await User.findOneAndUpdate({
+    const userUpdated = await User.findOneAndUpdate({
         _id: req.user._id
     }, {
         $set: updates
@@ -76,6 +76,7 @@ exports.updateAccount = async(req, res) => {
         runValidators: true,
         context: 'query'
     });
+    //res.json(userUpdated);
     req.flash('success', 'Updated the profile!');
     res.redirect('back');
 };

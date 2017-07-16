@@ -20,6 +20,8 @@ const userSchema = new Schema({
     required: 'Please supply a name',
     trim: true
   },
+  resetPasswordToken: String,
+  resetPasswordExpires: Date
 });
 
 // Add virtual field to use. The virtual field is not saved in database.

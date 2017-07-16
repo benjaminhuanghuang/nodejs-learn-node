@@ -55,6 +55,14 @@ router.get('/logout', authController.logout);
 
 // User edit
 router.get('/account', authController.isLoggedIn, userController.account);
-router.post('/account', authController.isLoggedIn, catchErrors(userController.updateAccount));
+router.post('/account', catchErrors(userController.updateAccount));
+
+// reset password
+router.post('/account/forgot', catchErrors(authController.forgot)); //generate reset token
+router.get('/account/reset/:token', catchErrors(authController.reset)); // show reset form
+router.post('/account/reset/:token',
+    authController.confirmedPasswords,
+    catchErrors(authController.update));
+
 
 module.exports = router;

@@ -19,3 +19,13 @@
 
     in index.js, add middleware to the router
         router.get('/add', authController.isLoggedIn, storeController.addStore);
+
+## Reset password
+    // 1. See if a user with that email exists
+
+    // 2. Set reset tokens and expiry on their account,save them to user database
+    
+    // 3. Send them an email with the token
+    
+    // 4. redirect to login page
+  
