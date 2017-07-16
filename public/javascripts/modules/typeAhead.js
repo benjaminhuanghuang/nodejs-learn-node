@@ -35,7 +35,8 @@ function typeAhead(search) {
                     return;
                 }
                 // tell them nothing came back
-                searchResults.innerHTML = dompurify.sanitize(`<div class="search__result">No results for ${this.value}</div>`);
+                searchResults.innerHTML = dompurify.sanitize(`<div class="search__result">
+                                                            No results for ${this.value}</div>`);
             })
             .catch(err => {
                 console.error(err);

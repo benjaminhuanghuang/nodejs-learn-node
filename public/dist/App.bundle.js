@@ -1060,7 +1060,7 @@ function typeAhead(search) {
                 return;
             }
             // tell them nothing came back
-            searchResults.innerHTML = _dompurify2.default.sanitize('<div class="search__result">No results for ' + _this.value + '</div>');
+            searchResults.innerHTML = _dompurify2.default.sanitize('<div class="search__result">\n                                                            No results for ' + _this.value + '</div>');
         }).catch(function (err) {
             console.error(err);
         });

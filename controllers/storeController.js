@@ -144,12 +144,12 @@ exports.searchStores = async(req, res) => {
     const stores = await Store
         // first find stores that match
         .find({
-            $text: {  // text search on any fields with text index
+            $text: { // text search on any fields with text index
                 $search: req.query.q
             }
         }, {
             score: {
-                $meta: 'textScore'   //add score field to result
+                $meta: 'textScore' //add score field to result
             }
         })
         // the sort them
@@ -163,8 +163,11 @@ exports.searchStores = async(req, res) => {
     res.json(stores);
 };
 
+// api/stores/near?lat=43.2&lng=-79.8
 exports.mapStores = async(req, res) => {
+    // res.json(req.query);
     const coordinates = [req.query.lng, req.query.lat].map(parseFloat);
+    // res.json(coordinates);
     const q = {
         location: {
             $near: {
@@ -176,7 +179,6 @@ exports.mapStores = async(req, res) => {
             }
         }
     };
-
     const stores = await Store.find(q).select('slug name description location photo').limit(10);
     res.json(stores);
 };
