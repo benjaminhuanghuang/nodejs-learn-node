@@ -1,7 +1,5 @@
 import axios from 'axios';
-import {
-    $
-} from './bling';
+import { $ } from './bling';
 
 const mapOptions = {
     center: {
