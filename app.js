@@ -56,7 +56,8 @@ app.use(flash());
 app.use((req, res, next) => {
   res.locals.h = helpers;
   res.locals.flashes = req.flash();
-  res.locals.user = req.user || null;
+  res.locals.user = req.user || null;   // passport middleware set user to req.user
+                                        // res.locals.user can be accessed in view template.
   res.locals.currentPath = req.path;
   next();
 });

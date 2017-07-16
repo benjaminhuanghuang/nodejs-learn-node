@@ -52,4 +52,9 @@ router.post('/register',
 // logout
 router.get('/logout', authController.logout);
 
+
+// User edit
+router.get('/account', authController.isLoggedIn, userController.account);
+router.post('/account', authController.isLoggedIn, catchErrors(userController.updateAccount));
+
 module.exports = router;
