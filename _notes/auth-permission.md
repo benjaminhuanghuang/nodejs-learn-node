@@ -29,3 +29,8 @@
     
     // 4. redirect to login page
   
+
+## Permission
+    confirmOwner in storeController.js
+    disable UI in _storeCard.pug
+

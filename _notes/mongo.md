@@ -23,3 +23,8 @@
     require('./models/Store');
 
 ## Using aggregate
+
+## Data relation
+    
+
+## Index
