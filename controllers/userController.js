@@ -50,7 +50,7 @@ exports.register = async(req, res, next) => {
     });
     const register = promisify(User.register, User);
     await register(user, req.body.password);
-    res.send('it works');
+    // res.send('it works');
     next();
 }
 
