@@ -31,14 +31,14 @@ router.get('/tags', catchErrors(storeController.getStoresByTag));
 router.get('/tags/:tag', catchErrors(storeController.getStoresByTag));
 
 //
-router.get('/login', catchErrors(userController.loginForm));
+router.get('/login', userController.loginForm);
 
 // Register
-router.get('/register', catchErrors(userController.registerForm));
+router.get('/register', userController.registerForm);
 // 1. validate register data
 // 2. register user
 // 3. log in user
 router.post('/register', userController.validateRegister,
-                    catchErrors(userController.register));
+                    userController.register);
 
 module.exports = router;
