@@ -19,9 +19,14 @@ const userSchema = new Schema({
     type: String,
     required: 'Please supply a name',
     trim: true
-  }
+  },
 });
 
+// Add virtual field to use. The virtual field is not saved in database.
+userSchema.virtual('gravatar').get(function(){
+    const hash = md5(this.email);
+    return `http://gravatar.com/avatar/${hash}?200`;
+});
 userSchema.plugin(passportLocalMongoose, { usernameField: 'email' });
 userSchema.plugin(mongodbErrorHandler);
 
