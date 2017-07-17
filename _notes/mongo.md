@@ -23,7 +23,8 @@
     require('./models/Store');
 
 ## Using aggregate
-
+    storeSchema.statics.getTopStores 
+    
 ## Data relation
     User<->Store<->Review
 

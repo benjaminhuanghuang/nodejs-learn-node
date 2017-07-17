@@ -116,7 +116,7 @@ storeSchema.statics.getTopStores = function () {
         // filter for only items that have 2 or more reviews
         {
             $match: {
-                'reviews.1': {
+                'reviews.1': { // means reviews[1]
                     $exists: true
                 }
             }
@@ -124,12 +124,12 @@ storeSchema.statics.getTopStores = function () {
         // Add the average reviews field
         {
             $project: {
-                photo: '$$ROOT.photo',
+                photo: '$$ROOT.photo', // $$ROOT means result document
                 name: '$$ROOT.name',
                 reviews: '$$ROOT.reviews',
                 slug: '$$ROOT.slug',
                 averageRating: {
-                    $avg: '$reviews.rating'
+                    $avg: '$reviews.rating' // $reviews created by $lookup
                 }
             }
         },
@@ -146,5 +146,12 @@ storeSchema.statics.getTopStores = function () {
     ]);
 }
 
+function autopopulate(next) {
+    this.populate('reviews');
+    next();
+}
+
+storeSchema.pre('find', autopopulate);
+storeSchema.pre('findOne', autopopulate);
 
 module.exports = mongoose.model('Store', storeSchema);
