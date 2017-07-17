@@ -29,11 +29,12 @@ const userSchema = new Schema({
   }]
 });
 
-// Add virtual field to use. The virtual field is not saved in database.
+// Add virtual field to user. The virtual field is not saved in database.
 userSchema.virtual('gravatar').get(function () {
   const hash = md5(this.email);
   return `http://gravatar.com/avatar/${hash}?200`;
 });
+
 userSchema.plugin(passportLocalMongoose, {
   usernameField: 'email'
 });

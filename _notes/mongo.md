@@ -1,3 +1,4 @@
+# Mongo database
 ## Using mLab
 
 
@@ -19,8 +20,20 @@
         console.error(`Can not connect to db with error: ${err.message}`);
     });
 
-    // import all of the models
+## Data Model
+    // import all of the models in start.js
     require('./models/Store');
+
+## Virtual attribute/fields
+    The virtual field is not saved in database.
+    userSchema.virtual('gravatar').get(function () {
+        const hash = md5(this.email);
+        return `http://gravatar.com/avatar/${hash}?200`;
+    });
+
+
+## Pre save hook
+
 
 ## Using aggregate
     storeSchema.statics.getTopStores 
