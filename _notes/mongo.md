@@ -25,6 +25,6 @@
 ## Using aggregate
 
 ## Data relation
-    
+    User<->Store<->Review
 
 ## Index

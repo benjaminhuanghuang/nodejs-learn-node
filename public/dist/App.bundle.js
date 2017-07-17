@@ -2836,13 +2836,15 @@ function ajaxHeart(e) {
     var _this = this;
 
     e.preventDefault(); // Don't summit the from
-    console.log('HEART ITTT!!!!!!!!!!!!!!!!');
-    console.log(this);
+    //console.log('HEART ITTT!!!!!!!!!!!!!!!!');
+    //console.log(this);   // this is the form
     _axios2.default.post(this.action).then(function (res) {
         //res is user object
+        // this.heart is the button with name "heart" in form
         var isHearted = _this.heart.classList.toggle('heart__button--hearted');
         (0, _bling.$)('.heart-count').textContent = res.data.hearts.length;
         if (isHearted) {
+            // sass/partials/_heart.scss
             _this.heart.classList.add('heart__button--float');
             setTimeout(function () {
                 return _this.heart.classList.remove('heart__button--float');
