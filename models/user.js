@@ -21,15 +21,22 @@ const userSchema = new Schema({
     trim: true
   },
   resetPasswordToken: String,
-  resetPasswordExpires: Date
+  resetPasswordExpires: Date,
+  // for review
+  hearts: [{
+    type: mongoose.Schema.ObjectId,
+    ref: 'Store'
+  }]
 });
 
 // Add virtual field to use. The virtual field is not saved in database.
-userSchema.virtual('gravatar').get(function(){
-    const hash = md5(this.email);
-    return `http://gravatar.com/avatar/${hash}?200`;
+userSchema.virtual('gravatar').get(function () {
+  const hash = md5(this.email);
+  return `http://gravatar.com/avatar/${hash}?200`;
 });
-userSchema.plugin(passportLocalMongoose, { usernameField: 'email' });
+userSchema.plugin(passportLocalMongoose, {
+  usernameField: 'email'
+});
 userSchema.plugin(mongodbErrorHandler);
 
 module.exports = mongoose.model('User', userSchema);

@@ -16,6 +16,7 @@ const multerOptions = {
     }
 }
 const Store = mongoose.model('Store');
+const User = mongoose.model('User');
 
 exports.homePage = (req, res) => {
     res.render('index');
