@@ -59,12 +59,26 @@ exports.createStore = async(req, res) => {
 };
 
 exports.getStores = async(req, res) => {
-    const stores = await Store.find(); // .populate('reviews'); use autopopulate in store.js
+    const page = req.params.page || 1;
+    const limit = 4;
+    const skip = (page * limit) - limit;
 
-    res.render('stores', {
-        title: 'Stores',
-        stores: stores
-    });
+    const storesPromise = Store.find() // .populate('reviews'); use autopopulate in store.js
+        .skip(skip)
+        .limit(limit);
+
+    const countPromise = Store.count();
+
+    const [stores, count] = await Promise.all([storesPromise, countPromise]);
+
+    const pages = Math.ceil(count / limit);
+    if (!stores.length && skip) {
+        req.flash('info', `Hey! You asked for page ${page}. But that doesn't exist. So I put you on page ${pages}`);
+        res.redirect(`/stores/page/${pages}`);
+        return;
+    }
+
+    res.render('stores', { title: 'Stores', stores, page, pages, count });
 };
 
 const confirmOwner = (store, user) => {
