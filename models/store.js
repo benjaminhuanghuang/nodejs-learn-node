@@ -39,16 +39,22 @@ const storeSchema = new mongoose.Schema({
         ref: 'User',
         required: 'You must supply an author'
     }
+}, {
+    toJSON: {
+        virtuals: true
+    }
 });
 
 // Define indexes
 // Define our indexes
 storeSchema.index({
-  name: 'text',
-  description: 'text'
+    name: 'text',
+    description: 'text'
 });
 
-storeSchema.index({ location: '2dsphere' });
+storeSchema.index({
+    location: '2dsphere'
+});
 
 storeSchema.pre('save', async function (next) {
     if (!this.isModified('name')) {
@@ -89,4 +95,10 @@ storeSchema.statics.getTagsList = function () {
     ]);
 }
 
+// find the reviews where the stores._id === review.store
+storeSchema.virtual('reviews', {
+    ref: 'Review',
+    localField: '_id', // which field on store
+    foreignField: 'store' // which field on the review
+})
 module.exports = mongoose.model('Store', storeSchema);

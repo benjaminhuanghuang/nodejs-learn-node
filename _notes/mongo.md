@@ -27,4 +27,8 @@
 ## Data relation
     User<->Store<->Review
 
+    virtual field
+
+    populate
+    
 ## Index

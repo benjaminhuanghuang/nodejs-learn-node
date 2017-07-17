@@ -108,7 +108,7 @@ exports.getStoreBySlug = async(req, res, next) => {
     //res.json(req.params)
     const store = await Store.findOne({
         slug: req.params.slug
-    }).populate('author'); // populate user data related to the store.
+    }).populate('author reviews'); // populate user data related to the store.
 
     if (!store)
         return next(); // go to errorHandlers.notFound
