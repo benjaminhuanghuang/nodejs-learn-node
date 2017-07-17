@@ -2753,8 +2753,8 @@ function loadPlaces(map) {
             return;
         }
         // create a bounds
-        var bounds = new google.maps.LatLngBounds();
-        var infoWindow = new google.maps.InfoWindow();
+        var bounds = new google.maps.LatLngBounds(); // make sure all pos displayed in view
+        var infoWindow = new google.maps.InfoWindow(); // show store information
 
         var markers = places.map(function (place) {
             var _place$location$coord = _slicedToArray(place.location.coordinates, 2),
@@ -2778,7 +2778,7 @@ function loadPlaces(map) {
         markers.forEach(function (marker) {
             return marker.addListener('click', function () {
                 console.log(this.place);
-                var html = '\n          <div class="popup">\n            <a href="/store/' + this.place.slug + '">\n              <img src="/uploads/' + (this.place.photo || 'store.png') + '" alt="' + this.place.name + '" />\n              <p>' + this.place.name + ' - ' + this.place.location.address + '</p>\n            </a>\n          </div>\n        ';
+                var html = ' <div class="popup">\n                                    <a href="/store/' + this.place.slug + '">\n                                    <img src="/uploads/' + (this.place.photo || 'store.png') + '" alt="' + this.place.name + '" />\n                                    <p>' + this.place.name + ' - ' + this.place.location.address + '</p>\n                                    </a>\n                                </div>\n                            ';
                 infoWindow.setContent(html);
                 infoWindow.open(map, this);
             });
