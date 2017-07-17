@@ -192,7 +192,7 @@ exports.mapPage = (req, res) => {
 
 exports.heartStore = async(req, res) => {
     const hearts = req.user.hearts.map(obj => obj.toString());
-
+    // add or remove store to user.hearts
     const operator = hearts.includes(req.params.id) ? '$pull' : '$addToSet';
     const user = await User
         .findByIdAndUpdate(req.user._id, {

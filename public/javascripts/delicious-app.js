@@ -5,6 +5,7 @@ import autoComplete from './modules/autocomplete';
 
 import typeAhead from './modules/typeAhead';
 import makeMap from './modules/map';
+import ajaxHeart from './modules/heart';
 
 // id was defined in _storeForm.pug
 autoComplete($('#address'), $('#lat'), $('#lng'));
@@ -12,3 +13,6 @@ autoComplete($('#address'), $('#lat'), $('#lng'));
 typeAhead($('.search'));
 
 makeMap($('#map'));
+
+const heartForms = $$('form.heart');
+heartForms.on('submit', ajaxHeart);
