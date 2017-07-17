@@ -65,7 +65,8 @@ exports.getStores = async(req, res) => {
 
     const storesPromise = Store.find() // .populate('reviews'); use autopopulate in store.js
         .skip(skip)
-        .limit(limit);
+        .limit(limit)
+        .sort({created: 'desc'});
 
     const countPromise = Store.count();
 
