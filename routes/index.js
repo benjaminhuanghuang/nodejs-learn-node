@@ -5,6 +5,7 @@ const router = express.Router();
 const storeController = require('../controllers/storeController');
 const userController = require('../controllers/userController');
 const authController = require('../controllers/authController');
+const reviewController = require('../controllers/reviewController');
 
 const {
     catchErrors
@@ -68,7 +69,10 @@ router.post('/account/reset/:token',
 router.get('/map', storeController.mapPage);
 
 // Hearts
-router.get('/hearts', storeController.getHearts);
+router.get('/hearts', authController.isLoggedIn, storeController.getHearts);
+
+// Review
+router.post('/reviews/:id', authController.isLoggedIn, catchErrors(reviewController.addReview))
 
 // API
 router.get('/api/search', catchErrors(storeController.searchStores));
